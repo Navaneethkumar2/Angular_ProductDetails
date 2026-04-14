@@ -8,29 +8,41 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-    constructor(private nv:Router){}
+  constructor(private nv: Router) { }
 
-   username:any;
-   password:any;
-   reqpwd:any;
+  username: any;
+  password: any;
+  reqpwd: any;
+  requser: any;
 
-   checkLogin(){
+  checkLogin() {
 
-       this.reqpwd = this.username.slice(0,3)+"123";
-      if(this.reqpwd==this.password){
+    this.reqpwd = this.username.slice(0, 3) + "123";
+    this.requser = "admin123";
+
+    if (this.requser == this.username && this.reqpwd == this.password) {
+
+      this.nv.navigateByUrl('/admin');
+      localStorage.setItem("adminloggedin", this.username);
+
+
+      alert("Admin Successfully");
+
+
+    } else if (this.reqpwd == this.password) {
+
       alert("Login Success");
-       console.log(this.username);
+      console.log(this.username);
       console.log(this.password);
       this.nv.navigateByUrl('/user');
-     localStorage.setItem("userloggedin",this.username);
+      localStorage.setItem("userloggedin", this.username);
+
+    } else {
+      alert("Login Failed");
+    }
 
 
-      }else{
-        alert("Login Failed");
-      }
-
-
-   }
+  }
 
 
 }
